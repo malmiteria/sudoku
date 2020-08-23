@@ -1,8 +1,8 @@
 
 import arcade
 
-from game_settings import *
-from game_logics import Sudoku
+from game.settings import *
+from models.sudoku import Sudoku
 
 class MyGame(arcade.Window):
 

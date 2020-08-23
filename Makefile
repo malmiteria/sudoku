@@ -5,8 +5,8 @@ install-virtualenv:
 	./local.virtualenv/bin/pip install setuptools pip wheel -U
 	./local.virtualenv/bin/pip install -r requirements.txt --find-links "file://${HOME}/.pip/wheelhouse"
 
-game:
-	./local.virtualenv/bin/python sudoku.py
+run-game:
+	./local.virtualenv/bin/python -m game.sudoku
 
 shell:
 	./local.virtualenv/bin/ptpython --vi
