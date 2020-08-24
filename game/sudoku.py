@@ -51,12 +51,21 @@ class MyGame(arcade.Window):
                 yield row, column
 
     def on_mouse_press(self, x, y, button, modifiers):
+        case = self.case_clicked(x, y)
+        if case is None:
+            return
+        if case.value == " ":
+            self.selected_case = case
+
+    def case_clicked(self, x, y):
         for row, column in self.all_cases_position():
-            xrow, ycol = self.pixel_position(row, column)
-            if xrow - WIDTH//2 < x < xrow + WIDTH//2 and ycol - HEIGHT//2 < y < ycol + HEIGHT//2:
-                case = self.sudoku.partial_grid.case_by_indexes(row, column)
-                if case.value == " ":
-                    self.selected_case = case
+            if not self.coordonate_in_case(x, y, row, column):
+                continue
+            return self.sudoku.partial_grid.case_by_indexes(row, column)
+
+    def coordonate_in_case(self, x, y, row, column):
+        xrow, ycol = self.pixel_position(row, column)
+        return xrow - WIDTH // 2 < x < xrow + WIDTH // 2 and ycol - HEIGHT // 2 < y < ycol + HEIGHT // 2
 
     def on_key_press(self, key, modifiers):
         if key not in NUM_KEYS.keys():
